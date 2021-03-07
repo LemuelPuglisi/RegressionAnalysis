@@ -1,0 +1,31 @@
+body {
+    background-color: #EAEAEA;
+    padding: 0;
+    margin: 20px;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+canvas { 
+    display:block;
+}
+
+canvas:focus {
+    outline:0;
+} 
+
+.fs {position:fixed; bottom:20px; right:20px;}
+#enter {display:block;}
+#exit {display:none;}
+
+.navbar {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.shad {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}

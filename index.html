@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regression</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+
+  <!-- Libraries -->
+  <script src="lib/p5core/p5.min.js"></script>
+  <script src="lib/regression/regression.min.js"></script>
+
+  <!-- Project -->
+  <script src="src/Core.js"></script>
+  <script src="src/Point.js"></script>
+  <script src="src/RegressionManager.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-light bg-light shadow ">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1 display-6">Regression.visualization</span>
+            </div>
+        </nav>
+    
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Regression description -->
+                <div class="p-3 mb-5 bg-white rounded mt-3 shad"><p class="lead">
+                    L'analisi della regressione è una tecnica usata per analizzare una serie 
+                    di dati che consistono in una variabile dipendente e una o più variabili 
+                    indipendenti. Lo scopo è stimare un'eventuale relazione funzionale esistente 
+                    tra la variabile dipendente e le variabili indipendenti.  
+                    La seguente applicazione calcola in tempo reale la funzione (lineare o non)
+                    che approssima al meglio la distribuzione di punti inseriti nel piano attraverso
+                    la tecnica di regressione indicata nel form. È possibile aggiungere punti
+                    nel grafico utilizzando il puntatore del mouse e cliccando sulla regione di 
+                    spazio in cui si vuole posizionare il punto. In alternativa, è possibile 
+                    aggiungere punti attraverso il form sottostante utilizzando le coordinate.   
+                </p></div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="p-3 mb-5 bg-white rounded mt-3 shad">
+                    <form>
+                        <div class="form-group">
+                            <label for="regressor_select">Seleziona il tipo di regressore</label>
+                            <select class="form-control" id="regression_type_select" onclick="changeRegressionMethod(getRegressionMethodFromSelect())">
+                                <option value="linear">lineare</option>
+                                <option value="polynomial">polinomiale</option>
+                                <option value="exponential">esponenziale</option>
+                                <option value="logarithmic">logaritmica</option>
+                                <option value="power">power law</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                            <div class="col-sm-6">
+                                <label for="cov">Covarianza</label>
+                                <input class="form-control" type="number" id="cov" disabled>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="pearson">Coefficiente di Pearson</label>
+                                <input class="form-control" type="number" id="pearson" disabled>              
+                            </div>
+                            </div>  
+                        </div>
+                    </form>
+                </div>
+
+                <div class="p-3 mb-5 bg-white rounded mt-3 shad">
+                    <form>
+                        <div class="form-group">
+                            <label for="x_cord">
+                            Inserisci i punti cliccando sul diagramma cartesiano o 
+                            tramite coordinate inserendo i valori nel form sottostante
+                            </label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="number" step="0.01" class="form-control" id="new_point_x_cord" placeholder="valore di x">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="number" step="0.01" class="form-control" id="new_point_y_cord" placeholder="valore di y">                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="new_point_trigger" onclick="addPointUsingForm()" class="btn btn-primary align-self-start" >inserisci</button>
+                            <button type="button" id="reset_point_set" onclick="resetPointset()" class="btn btn-danger align-self-end">Svuota l'insieme di punti</button>
+                        </div>
+                        <div style="float:none"></div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div id="regression" class="center"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
