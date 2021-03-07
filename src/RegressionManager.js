@@ -51,10 +51,10 @@ class RegressionManager {
         this.pointset = [];
     }
 
-    updateRegressor(method = this.regressionMethod) {
+    updateRegressor(method = this.regressionMethod, options = {}) {
         this.regressionMethod = method; 
         let coordsList = this.pointset.map(point => [point.x, point.y]); 
-        this.regressor = regression[method](coordsList)
+        this.regressor = regression[method](coordsList, options)
     }
 
 }

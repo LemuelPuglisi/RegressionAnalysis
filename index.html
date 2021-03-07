@@ -54,15 +54,24 @@
             <div class="col-sm-6">
                 <div class="p-3 mb-5 bg-white rounded mt-3 shad">
                     <form>
+
                         <div class="form-group">
-                            <label for="regressor_select">Seleziona il tipo di regressore</label>
-                            <select class="form-control" id="regression_type_select" onclick="changeRegressionMethod(getRegressionMethodFromSelect())">
-                                <option value="linear">lineare</option>
-                                <option value="polynomial">polinomiale</option>
-                                <option value="exponential">esponenziale</option>
-                                <option value="logarithmic">logaritmica</option>
-                                <option value="power">power law</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <label for="regressor_select">Seleziona il tipo di regressore</label>
+                                    <select class="form-control" id="regression_type_select" onclick="changeRegressionMethod(getRegressionMethodFromSelect())">
+                                        <option value="linear">lineare</option>
+                                        <option value="polynomial">polinomiale</option>
+                                        <option value="exponential">esponenziale</option>
+                                        <option value="logarithmic">logaritmica</option>
+                                        <option value="power">power law</option>
+                                    </select>            
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="polynomial_order" id="polynomial_order_label">Ordine polinomio</label>
+                                    <input type="number" class="form-control" id="polynomial_order" onchange="changeRegressionMethod('polynomial')" disabled>
+                                </div>
+                            </div>    
                         </div>
 
                         <div class="form-group">

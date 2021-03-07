@@ -11,7 +11,11 @@ function getRegressionMethodFromSelect() {
 }
 
 function changeRegressionMethod(method) {
-  rm.updateRegressor(method)
+  let orderInput = document.getElementById('polynomial_order'); 
+  orderInput.disabled = method != 'polynomial';
+  let options = method == 'polynomial' ? {order: orderInput.value} : {}; 
+  
+  rm.updateRegressor(method, options)
   loop();
 }
 
@@ -105,6 +109,10 @@ function draw() {
     pointAdded = false; 
   }
   rm.displayRegressionFunction(); 
+
+  fill(0); 
+  noStroke(); 
+  text(rm.regressionMethod, 20, 20, 30, 30); 
   noLoop(); 
 }
 
