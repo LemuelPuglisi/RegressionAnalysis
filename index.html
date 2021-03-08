@@ -2,21 +2,27 @@
 <html lang="it">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regression Analysis</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Regression analysis visualizer">
+    <meta name="keywords" content="regression, linear, logarithmic, power, exponential, polynomial, visualization">
+    <meta name="author" content="Lemuel Puglisi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Libraries -->
-  <script src="lib/p5core/p5.min.js"></script>
-  <script src="lib/regression/regression.min.js"></script>
+    <title>Regression Analysis</title>
+    <link rel="icon" href="assets/icon.svg">
 
-  <!-- Project -->
-  <script src="src/Core.js"></script>
-  <script src="src/Point.js"></script>
-  <script src="src/RegressionManager.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- Libraries -->
+    <script src="lib/p5core/p5.min.js"></script>
+    <script src="lib/regression/regression.min.js"></script>
+
+    <!-- Project -->
+    <script src="src/Core.js"></script>
+    <script src="src/Point.js"></script>
+    <script src="src/RegressionManager.js"></script>
 
 </head>
 
@@ -27,7 +33,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-light bg-light shadow ">
             <div class="container-fluid">
-              <span class="navbar-brand mb-0 h1 display-6">Visualizzazione di analisi di regressione</span>
+                <h2 class="mt-2">Regression Analysis Visualizer</h2>
             </div>
         </nav>
     
@@ -116,7 +122,9 @@
             </div>
 
             <div class="col-sm-6">
-                <div id="regression" class="center"></div>
+                <div style="width: 100%;">
+                    <div id="regression" class="center"></div>
+                </div>
             </div>
         </div>
     </div>
