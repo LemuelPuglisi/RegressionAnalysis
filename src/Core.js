@@ -41,7 +41,7 @@ function addPoint(x = mouseX, y = mouseY) {
 function addPointUsingForm() {
     let x = document.getElementById('new_point_x_cord').value
     let y = document.getElementById('new_point_y_cord').value
-    x = (width / 2)  + parseFloat(x) 
+    x = (width  / 2) + parseFloat(x) 
     y = (height / 2) - parseFloat(y)
     addPoint(x, y)
 }
@@ -51,34 +51,34 @@ function resetPointset() {
     rm.resetPointset();
     loop();  
 }
-  
+
 function calculateCovariance() {
-    const n = pointset.length
-    const xmean = pointset.map(p => p.x).reduce((acc, x) => acc + x, 0) / n
-    const ymean = pointset.map(p => p.y).reduce((acc, y) => acc + y, 0) / n  
-    let cov = (pointset.reduce((acc, p) => acc += (p.x - xmean) * (p.y - ymean), 0) / n).toFixed(2) 
-    return cov * -1; // y in p5.js is inverted 
+  const xmean = pointset.map(p => p.x).reduce((acc, x) => acc += x, 0) / pointset.length
+  const ymean = pointset.map(p => p.y).reduce((acc, y) => acc += y, 0) / pointset.length
+  const pmean = pointset.reduce((acc, pt) => acc += (pt.x * pt.y), 0) / pointset.length
+  return (pmean - (xmean * ymean)) * (-1); 
 }
 
 function displayCovariance() {
     let covarianceLabel = document.getElementById('cov')
-    covarianceLabel.value = calculateCovariance(); 
+    covarianceLabel.value = calculateCovariance().toFixed(4); // y axys is flipped 
 }
 
 function calculateStandardDeviation(distr) {
-    const mean = distr.reduce((acc, v) => acc + v, 0) / distr.length
-    return distr.reduce((acc, v) => acc += Math.pow(v - mean, 2), 0) / distr.length 
+    const mean = distr.reduce((acc, v) => acc += v, 0) / distr.length; 
+    const variance = distr.reduce((acc, v) => acc += Math.pow(v - mean, 2), 0) / distr.length
+    return Math.sqrt(variance) 
 }
 
 function calculatePearson() {
     const xsd = calculateStandardDeviation(pointset.map(pt => pt.x))
     const ysd = calculateStandardDeviation(pointset.map(pt => pt.y))
-    return (calculateCovariance() / (xsd * ysd)).toFixed(8)
+    return (calculateCovariance() / (xsd * ysd))
 }
 
 function displayPearson() {
     let pearsonLabel = document.getElementById('pearson')
-    pearsonLabel.value = calculatePearson(); 
+    pearsonLabel.value = calculatePearson().toFixed(8); 
 }
 
 function setup() {
@@ -91,12 +91,11 @@ function setup() {
   noFill();
 
   pointset = []; 
-  pointAdded = false; 
+  pointAdded = false;
 
   rm = new RegressionManager(getRegressionMethodFromSelect()); 
   responsivelyResizeCanvas(); 
 }
-
 
 function draw() {
   background(255);
