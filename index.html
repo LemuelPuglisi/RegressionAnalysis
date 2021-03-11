@@ -48,9 +48,9 @@
                     tra la variabile dipendente e le variabili indipendenti.  
                     La seguente applicazione calcola in tempo reale la funzione (lineare o non)
                     che approssima al meglio la distribuzione di punti inseriti nel piano attraverso
-                    la tecnica di regressione indicata nel form. È possibile aggiungere punti
+                    la tecnica di regressione indicata nel form. <u> È possibile aggiungere punti
                     nel grafico utilizzando il puntatore del mouse e cliccando sulla regione di 
-                    spazio in cui si vuole posizionare il punto. In alternativa, è possibile 
+                    spazio in cui si vuole posizionare il punto</u>. In alternativa, è possibile 
                     aggiungere punti attraverso il form sottostante utilizzando le coordinate.   
                 </p></div>
             </div>
@@ -83,11 +83,15 @@
 
                         <div class="form-group">
                             <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <label for="cov">Covarianza</label>
                                 <input class="form-control" type="number" id="cov" disabled>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
+                                <label for="cov">Correlazione</label>
+                                <input class="form-control" type="text" id="cov_text" disabled>
+                            </div>
+                            <div class="col-sm-4">
                                 <label for="pearson">Coefficiente di Pearson</label>
                                 <input class="form-control" type="number" id="pearson" disabled>              
                             </div>

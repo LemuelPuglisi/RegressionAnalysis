@@ -53,12 +53,24 @@ function resetPointset() {
 
 function displayCovariance() {
     let covarianceLabel = document.getElementById('cov')
-    covarianceLabel.value = distribution.getCovariance().toFixed(4)
+    let covarianceTextLabel = document.getElementById('cov_text')    
+    const covariance = distribution.getCovariance().toFixed(4); 
+    covarianceLabel.value = covariance
+    
+    if (Math.floor(covariance) == 0) 
+      covarianceTextLabel.value = 'statisticamente incorrelati'
+    else if (covariance > 0) 
+      covarianceTextLabel.value = 'correlati positivamente'
+    else 
+      covarianceTextLabel.value = 'correlati negativamente'
 }
 
 function displayPearson() {
     let pearsonLabel = document.getElementById('pearson')
-    pearsonLabel.value = distribution.getPearson().toFixed(8); 
+    const pearsonCoefficient= distribution.getPearson().toFixed(8);
+    pearsonLabel.value = pearsonCoefficient;
+    pearsonLabel.style.backgroundColor = pearsonCoefficient < -0.90 || pearsonCoefficient > 0.90
+      ? '#C7EFCF' : '#D8829D';    
 }
 
 function setup() {
