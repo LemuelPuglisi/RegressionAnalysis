@@ -1,4 +1,4 @@
-let pointset;  
+let distribution;  
 let pointAdded;  
 let rm; 
 
@@ -14,8 +14,8 @@ function changeRegressionMethod(method) {
   let orderInput = document.getElementById('polynomial_order'); 
   orderInput.disabled = method != 'polynomial';
   let options = method == 'polynomial' ? {order: orderInput.value} : {}; 
-  
-  rm.updateRegressor(method, options)
+  rm.setOptions(options)
+  rm.setRegressionMethod(method)  
   loop();
 }
 
@@ -33,7 +33,7 @@ function drawCartesianAxys() {
 }
 
 function addPoint(x = mouseX, y = mouseY) {
-    pointset.push(new Point(x, y))
+    distribution.add(new Point(x, y))
     pointAdded = true; 
     loop(); 
 }
@@ -47,66 +47,49 @@ function addPointUsingForm() {
 }
   
 function resetPointset() {
-    pointset = []; 
-    rm.resetPointset();
+    distribution.reset(); 
     loop();  
-}
-
-function calculateCovariance() {
-  const xmean = pointset.map(p => p.x).reduce((acc, x) => acc += x, 0) / pointset.length
-  const ymean = pointset.map(p => p.y).reduce((acc, y) => acc += y, 0) / pointset.length
-  const pmean = pointset.reduce((acc, pt) => acc += (pt.x * pt.y), 0) / pointset.length
-  return (pmean - (xmean * ymean)) * (-1); 
 }
 
 function displayCovariance() {
     let covarianceLabel = document.getElementById('cov')
-    covarianceLabel.value = calculateCovariance().toFixed(4); // y axys is flipped 
-}
-
-function calculateStandardDeviation(distr) {
-    const mean = distr.reduce((acc, v) => acc += v, 0) / distr.length; 
-    const variance = distr.reduce((acc, v) => acc += Math.pow(v - mean, 2), 0) / distr.length
-    return Math.sqrt(variance) 
-}
-
-function calculatePearson() {
-    const xsd = calculateStandardDeviation(pointset.map(pt => pt.x))
-    const ysd = calculateStandardDeviation(pointset.map(pt => pt.y))
-    return (calculateCovariance() / (xsd * ysd))
+    covarianceLabel.value = distribution.getCovariance().toFixed(4)
 }
 
 function displayPearson() {
     let pearsonLabel = document.getElementById('pearson')
-    pearsonLabel.value = calculatePearson().toFixed(8); 
+    pearsonLabel.value = distribution.getPearson().toFixed(8); 
 }
 
 function setup() {
-  let c = createCanvas(800, 800, P2D);
-  c.parent('regression')
-  c.mousePressed(addPoint)
 
-  background(255);
-  stroke(0, 255, 0);
-  noFill();
+    let c = createCanvas(800, 800, P2D);
+    c.parent('regression')
+    c.mousePressed(addPoint)
 
-  pointset = []; 
-  pointAdded = false;
+    background(255);
+    stroke(0, 255, 0);
+    noFill();
 
-  rm = new RegressionManager(getRegressionMethodFromSelect()); 
-  responsivelyResizeCanvas(); 
+    distribution = new Distribution(); 
+    pointAdded = false;
+
+    rm = new RegressionManager(distribution, getRegressionMethodFromSelect()); 
+    responsivelyResizeCanvas(); 
 }
 
 function draw() {
+
   background(255);
   drawCartesianAxys(); 
-  pointset.forEach(p => p.display())
+  distribution.display(); 
+
   if (pointAdded) {
-    rm.updatePointset(pointset); 
     displayCovariance(); 
     displayPearson(); 
     pointAdded = false; 
   }
+
   rm.displayRegressionFunction(); 
 
   fill(0); 
@@ -114,9 +97,3 @@ function draw() {
   text(rm.regressionMethod, 20, 20, 30, 30); 
   noLoop(); 
 }
-
-
-
-
-
-

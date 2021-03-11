@@ -1,7 +1,5 @@
 
 class RegressionManager {
-
-    pointset = []; 
     
     allowedRegressionMethods = [
         'linear',
@@ -11,12 +9,30 @@ class RegressionManager {
         'polynomial'
     ]
 
-    constructor(regressionType) {
-        this.regressionMethod = this.allowedRegressionMethods.includes(regressionType)
-            ? regressionType
-            : regressionType[0]; 
+    constructor(distribution, regrType = 'linear') {
+        this.regressionMethod = this.allowedRegressionMethods.includes(regrType)
+            ? regrType
+            : regrType[0];
+            
+        this.distribution = distribution; 
+        this.distribution.addObserver(this); 
+        this.options = {}; 
+    }
 
-        this.resetPointset(); 
+    update() {
+        this.regressor = regression[this.regressionMethod](this.distribution.asArray(), this.options)
+    }
+
+    setOptions(options) {
+        this.options = options;
+        this.update();  
+    }
+
+    setRegressionMethod(regrType) {
+        this.regressionMethod = this.allowedRegressionMethods.includes(regrType)
+            ? regrType
+            : regrType[0];
+        this.update();
     }
 
     displayRegressionFunction() {
@@ -40,21 +56,6 @@ class RegressionManager {
         beginShape(); 
         pointlist.forEach(p => curveVertex(p.x, p.y));
         endShape(); 
-    }
-
-    updatePointset(pointset) {
-        this.pointset = pointset; 
-        this.updateRegressor(); 
-    }
-
-    resetPointset(pointset) {
-        this.pointset = [];
-    }
-
-    updateRegressor(method = this.regressionMethod, options = {}) {
-        this.regressionMethod = method; 
-        let coordsList = this.pointset.map(point => [point.x, point.y]); 
-        this.regressor = regression[method](coordsList, options)
     }
 
 }
