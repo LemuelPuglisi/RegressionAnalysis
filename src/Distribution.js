@@ -41,6 +41,10 @@ class Distribution {
         return this.pointset.map(p => [p.x, p.y]);
     }
 
+    size() {
+        return this.pointset.length; 
+    }
+
     getX () {
         return this.pointset.map(p => p.x);
     }

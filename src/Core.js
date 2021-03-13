@@ -73,6 +73,12 @@ function displayPearson() {
       ? '#C7EFCF' : '#D8829D';    
 }
 
+function displayFunctionAsString() {
+  if (!rm.regressor || distribution.size() < 2) return; 
+  let stringFunctionLabel = document.getElementById('string_function')
+  stringFunctionLabel.value = rm.regressor.string
+}
+
 function setup() {
 
     let c = createCanvas(800, 800, P2D);
@@ -103,6 +109,7 @@ function draw() {
   }
 
   rm.displayRegressionFunction(); 
+  displayFunctionAsString(); 
 
   fill(0); 
   noStroke(); 
