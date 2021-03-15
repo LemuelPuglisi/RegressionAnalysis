@@ -9,12 +9,13 @@ class RegressionManager {
         'polynomial'
     ]
 
-    constructor(distribution, regrType = 'linear') {
+    constructor(distribution, regrType = 'linear', mapper = new Mapper()) {
         this.regressionMethod = this.allowedRegressionMethods.includes(regrType)
             ? regrType
             : regrType[0];
             
         this.distribution = distribution; 
+        this.mapper = mapper; 
         this.distribution.addObserver(this); 
         this.options = {}; 
     }
@@ -42,10 +43,11 @@ class RegressionManager {
 
     generatePointlist() {
         let ptlist = []; 
-        for(let i = 0; i < width; i += 20) {
-            point = new Point(i, this.regressor.predict(i)[1])
+        for (let x = (-width / 2); x < width / 2; x += 2) {
+            let y = this.regressor.predict(x)[1]
+            let point = Point.initWithCartesianCoords(x, y); 
             ptlist.push(point)
-        }        
+        }
         return ptlist; 
     }
 
@@ -54,7 +56,8 @@ class RegressionManager {
         stroke('#67AAF9'); 
         strokeWeight(3); 
         beginShape(); 
-        pointlist.forEach(p => curveVertex(p.x, p.y));
+        pointlist.map(p => this.mapper.mapToCanvas(p.x, p.y))
+            .forEach(cords => curveVertex(cords.x, cords.y))        
         endShape(); 
     }
 

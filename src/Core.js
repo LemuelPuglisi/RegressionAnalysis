@@ -1,6 +1,7 @@
 let distribution;  
 let pointAdded;  
 let rm; 
+let mapper; 
 
 let xform; 
 let yform; 
@@ -33,7 +34,7 @@ function drawCartesianAxys() {
 }
 
 function addPoint(x = mouseX, y = mouseY) {
-    distribution.add(new Point(x, y))
+    distribution.add(Point.initWithCanvasCoords(x, y))
     pointAdded = true; 
     loop(); 
 }
@@ -41,9 +42,9 @@ function addPoint(x = mouseX, y = mouseY) {
 function addPointUsingForm() {
     let x = document.getElementById('new_point_x_cord').value
     let y = document.getElementById('new_point_y_cord').value
-    x = (width  / 2) + parseFloat(x) 
-    y = (height / 2) - parseFloat(y)
-    addPoint(x, y)
+    distribution.add(Point.initWithCartesianCoords(x, y)); 
+    pointAdded = true; 
+    loop(); 
 }
   
 function resetPointset() {
@@ -89,6 +90,7 @@ function setup() {
     stroke(0, 255, 0);
     noFill();
 
+    mapper = new Mapper(); 
     distribution = new Distribution(); 
     pointAdded = false;
 
