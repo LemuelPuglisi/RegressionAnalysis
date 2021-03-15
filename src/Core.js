@@ -42,7 +42,8 @@ function addPoint(x = mouseX, y = mouseY) {
 function addPointUsingForm() {
     let x = document.getElementById('new_point_x_cord').value
     let y = document.getElementById('new_point_y_cord').value
-    distribution.add(Point.initWithCartesianCoords(x, y)); 
+    let p = Point.initWithCartesianCoords(parseInt(x), parseInt(y))
+    distribution.add(p); 
     pointAdded = true; 
     loop(); 
 }
