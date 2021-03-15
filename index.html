@@ -25,6 +25,7 @@
     <script src="src/Point.js"></script>
     <script src="src/Distribution.js"></script>    
     <script src="src/RegressionManager.js"></script>
+    <script src="src/Error.js"></script>
 
 </head>
 
@@ -104,33 +105,55 @@
                                 <div class="col-sm-12">
                                     <label for="string_function">Funzione di regressione</label>
                                     <input type="text" class="form-control" id="string_function" disabled>
-                                    <p class="text-muted"><small>
-                                        <b>Attenzione:</b> Il diagramma cartesiano è simbolico, il centro è fissato
-                                        nell'angolo in alto a sinistra ed i valori nell'asse y aumentano verso il basso.   
-                                    </small></p>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- <div class="form-group">
+                            <div class="row">
+                            <div class="col-sm-4">
+                                <label for="mse">MSE</label>
+                                <input class="form-control" type="number" id="mse" disabled>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="rmse">RMSE</label>
+                                <input class="form-control" type="text" id="rmse" disabled>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="mae">MAE</label>
+                                <input class="form-control" type="number" id="mae" disabled>              
+                            </div>
+                            </div>  
+                        </div> -->
                         
                     </form>
                 </div>
 
                 <div class="p-3 mb-5 bg-white rounded mt-3 shad">
                     <form>
-                        <div class="form-group">
-                            <label for="x_cord">
+                        <p>
                             Inserisci i punti cliccando sul diagramma cartesiano o 
                             tramite coordinate inserendo i valori nel form sottostante
-                            </label>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <input type="number" step="0.01" class="form-control" id="new_point_x_cord" placeholder="valore di x">
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="number" step="0.01" class="form-control" id="new_point_x_cord" placeholder="x">
                                 </div>
-                                <div class="col-sm-6">
-                                    <input type="number" step="0.01" class="form-control" id="new_point_y_cord" placeholder="valore di y">                
+                                <div class="form-group">
+                                    <input type="number" step="0.01" class="form-control" id="new_point_y_cord" placeholder="y">                
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="new_points_textarea" placeholder="oppure scrivi una coppia di coordinate per riga (es. x, y)" style="height: 100px"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <button type="button" id="new_point_trigger" onclick="addPointUsingForm()" class="btn btn-primary align-self-start" >inserisci</button>
                             <button type="button" id="reset_point_set" onclick="resetPointset()" class="btn btn-danger align-self-end">Svuota l'insieme di punti</button>

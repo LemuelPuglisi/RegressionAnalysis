@@ -39,13 +39,32 @@ function addPoint(x = mouseX, y = mouseY) {
     loop(); 
 }
 
-function addPointUsingForm() {
+function addFromTextArea() {
+  let textarea = document.getElementById('new_points_textarea');
+  if (textarea.value.trim().length < 1) return; 
+  let pairsOfCords = textarea.value.split('\n');
+  pairsOfCords.forEach(stringCords => {
+    if (!stringCords.includes(',')) {
+      console.error('invalid coordinates format.')
+      return; 
+    }
+    let parts = stringCords.split(',').map(v => parseInt(v))
+    let point = Point.initWithCartesianCoords(parts[0], parts[1])
+    distribution.add(point); 
+    pointAdded = true; 
+  })
+}
+
+function addPointUsingForm() {    
+    addFromTextArea(); 
     let x = document.getElementById('new_point_x_cord').value
     let y = document.getElementById('new_point_y_cord').value
-    let p = Point.initWithCartesianCoords(parseInt(x), parseInt(y))
-    distribution.add(p); 
-    pointAdded = true; 
-    loop(); 
+    if (x && y) {
+      let p = Point.initWithCartesianCoords(parseInt(x), parseInt(y))
+      distribution.add(p); 
+      pointAdded = true; 
+    }
+    loop();   
 }
   
 function resetPointset() {
@@ -78,7 +97,10 @@ function displayPearson() {
 function displayFunctionAsString() {
   if (!rm.regressor || distribution.size() < 2) return; 
   let stringFunctionLabel = document.getElementById('string_function')
-  stringFunctionLabel.value = rm.regressor.string
+
+  stringFunctionLabel.value = rm.regressor.string.includes('NaN')
+    ? 'Errore: rispettare il dominio della funzione'
+    : rm.regressor.string; 
 }
 
 function setup() {
