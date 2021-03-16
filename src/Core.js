@@ -7,6 +7,9 @@ let xform;
 let yform; 
 let submit; 
 
+let pointSize; 
+let functionSize; 
+
 function getRegressionMethodFromSelect() {
     return document.getElementById('regression_type_select').value
 }
@@ -22,7 +25,7 @@ function changeRegressionMethod(method) {
 
 function responsivelyResizeCanvas() {
   const w = windowWidth;
-  let size = w < 600 ? w * 0.65 : w / 3;   
+  let size = w < 600 ? w * 0.60 : w / 3.5;   
   resizeCanvas(size, size); 
 }
 
@@ -103,6 +106,20 @@ function displayFunctionAsString() {
     : rm.regressor.string; 
 }
 
+function updatePointSize() {
+    let pointsizeRange = document.getElementById('point-size'); 
+    pointSize = pointsizeRange.value; 
+    distribution.pointset.forEach(point => point.setDiameter(pointSize))
+    loop(); 
+}
+
+function updateFunctionSize() {
+    let functionSizeRange = document.getElementById('function-size'); 
+    functionSize = functionSizeRange.value; 
+    rm.setFunctionThickness(functionSize)
+    loop(); 
+}
+
 function setup() {
 
     let c = createCanvas(800, 800, P2D);
@@ -112,6 +129,9 @@ function setup() {
     background(255);
     stroke(0, 255, 0);
     noFill();
+
+    pointSize = 12; 
+    functionSize = 3; 
 
     mapper = new Mapper(); 
     distribution = new Distribution(); 

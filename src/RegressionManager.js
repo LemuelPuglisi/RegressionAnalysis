@@ -18,6 +18,7 @@ class RegressionManager {
         this.mapper = mapper; 
         this.distribution.addObserver(this); 
         this.options = {}; 
+        this.thickness = 3;
     }
 
     update() {
@@ -54,11 +55,15 @@ class RegressionManager {
     drawCurve(pointlist) {
         noFill(); 
         stroke('#67AAF9'); 
-        strokeWeight(3); 
+        strokeWeight(this.thickness); 
         beginShape(); 
         pointlist.map(p => this.mapper.mapToCanvas(p.x, p.y))
             .forEach(cords => curveVertex(cords.x, cords.y))        
         endShape(); 
+    }
+
+    setFunctionThickness(thickness) {
+        this.thickness = thickness; 
     }
 
 }

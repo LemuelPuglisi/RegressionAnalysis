@@ -29,4 +29,8 @@ class Point {
         let canvasCoords = this.mapper.mapToCanvas(this.x, this.y); 
         circle(canvasCoords.x, canvasCoords.y, this.diameter); 
     }
+
+    setDiameter(diameter) {
+        this.diameter = diameter; 
+    }
 }
