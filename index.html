@@ -33,37 +33,29 @@
 
     <div class="container-fluid">
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-light bg-light shadow ">
-            <div class="container-fluid">
-                <h2 class="mt-2">Regression Analysis Visualizer</h2>
-            </div>
-        </nav>
-    
-        <div class="row">
-            <div class="col-sm-12">
-                <!-- Regression description -->
-                <div class="p-3 mb-5 bg-white rounded mt-3 shad"><p class="lead">
-                    L'analisi della regressione è una tecnica usata per analizzare una serie 
-                    di dati che consistono in una variabile dipendente e una o più variabili 
-                    indipendenti. Lo scopo è stimare un'eventuale relazione funzionale esistente 
-                    tra la variabile dipendente e le variabili indipendenti.  
-                    La seguente applicazione calcola in tempo reale la funzione (lineare o non)
-                    che approssima al meglio la distribuzione di punti inseriti nel piano attraverso
-                    la tecnica di regressione indicata nel form. <u> È possibile aggiungere punti
-                    nel grafico utilizzando il puntatore del mouse e cliccando sulla regione di 
-                    spazio in cui si vuole posizionare il punto</u>. In alternativa, è possibile 
-                    aggiungere punti attraverso il form sottostante utilizzando le coordinate.   
-                </p></div>
-            </div>
+
+        <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center bg-light shadow ">
+            <h2 class="display-4">Regression Analysis Visualizer</h2>
+            <p class="lead">
+                L'analisi della regressione è una tecnica usata per analizzare una serie 
+                di dati che consistono in una variabile dipendente e una o più variabili 
+                indipendenti. Lo scopo è stimare un'eventuale relazione funzionale esistente 
+                tra la variabile dipendente e le variabili indipendenti.  
+                La seguente applicazione calcola in tempo reale la funzione (lineare o non)
+                che approssima al meglio la distribuzione di punti inseriti nel piano attraverso
+                la tecnica di regressione indicata nel form. <mark> È possibile aggiungere punti
+                nel grafico utilizzando il puntatore del mouse e cliccando sulla regione di 
+                spazio in cui si vuole posizionare il punto</mark>. In alternativa, è possibile 
+                aggiungere punti attraverso il form sottostante utilizzando le coordinate.               
+            </p>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
 
             <div class="col-sm-6">
-                <div class="p-3 mb-5 bg-white rounded mt-3 shad">
-                    <form>
 
+                <div class="p-3 mb-2 bg-white rounded mt-2 shad">
+                    <form>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-8">
@@ -110,10 +102,8 @@
                         </div>
                         
                     </form>
-                </div>
 
-                <div class="p-3 mb-5 bg-white rounded mt-3 shad">
-                    <form>
+                    <form class="mt-4">
                         <p>
                             Inserisci i punti cliccando sul diagramma cartesiano o 
                             tramite coordinate inserendo i valori nel form sottostante
@@ -147,30 +137,36 @@
             </div>
 
             <div class="col-sm-6">
+                
+                <div class="p-3 mb-3 bg-white rounded mt-2 shad">
+                    <form class="row">
+                        <div class="col-sm-4">
+                            <label for="point-size" class="form-label">Diametro punti</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="range" min="1" max="20" step="0.5" class="form-range" id="point-size" onchange="updatePointSize()">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="point-size" class="form-label">Larghezza funzione</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="range" min="1" max="20" step="0.5" class="form-range" id="function-size" onchange="updateFunctionSize()">
+                        </div>
+                    </form>
+                </div>
 
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="p-3 mb-5 bg-white rounded mt-3 shad">
-                            <form>
-                                <label for="point-size" class="form-label">Diametro punti</label>
-                                <input type="range" min="1" max="20" step="0.5" class="form-range" id="point-size" onchange="updatePointSize()">
-
-                                <label for="customRange2" class="form-label">Larghezza funzione di regressione</label>
-                                <input type="range" min="1" max="20" step="0.5" class="form-range" id="function-size" onchange="updateFunctionSize()">
-                            </form>
-                        </div>
-                    </div>
                     <div class="col-sm-12" style="text-align: center;">
                         <div style="display: inline-flex; padding: 10px; " class="shad">
                             <div id="regression" class=""></div>
                         </div>        
                     </div>
                 </div>
-
             </div>
+
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-sm-12">
                 <div class="p-3 mb-5 w-100 bg-white rounded mt-3 shad">
                     <h4>Crediti</h4>  
@@ -179,6 +175,7 @@
                         <li><a href="https://github.com/Tom-Alexander/regression-js">regression.js</a> - linear least-squares fitting methods library</li>
                         <li><a href="https://getbootstrap.com/">bootstrap</a> - CSS framework</li>
                     </ul>
+                    <p> Author: Lemuel Puglisi @ UniCT, DMI</p>
                 </div>
             </div>
         </div>
