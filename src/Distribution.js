@@ -61,7 +61,7 @@ class Distribution {
         const xmean = this.calculateMean(this.getX())
         const ymean = this.calculateMean(this.getY())
         const pmean = this.calculateMean(this.pointset.map(p => p.x * p.y))
-        this.cachedCovariance = (pmean - (xmean * ymean)) * (-1); 
+        this.cachedCovariance = (pmean - (xmean * ymean)); 
     }
 
     getCovariance() {

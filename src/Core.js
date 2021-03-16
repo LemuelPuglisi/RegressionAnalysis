@@ -133,6 +133,9 @@ function setup() {
     pointSize = 12; 
     functionSize = 3; 
 
+    document.getElementById('function-size').value = functionSize; 
+    document.getElementById('point-size').value = pointSize;  
+
     mapper = new Mapper(); 
     distribution = new Distribution(); 
     pointAdded = false;
