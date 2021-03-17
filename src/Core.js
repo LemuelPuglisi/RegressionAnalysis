@@ -141,15 +141,15 @@ function localizeInference() {
   const cords = mapper.mapToCanvas(inferFeatureX, inferFeatureY)
 
   strokeWeight(1)
-  stroke('#CA3433');
+  stroke('#3CAEA3');
   noFill(); 
   circle(cordsOnX.x, cordsOnX.y, 10);
   
   strokeWeight(1)
-  stroke('#CA3433');
+  stroke('#3CAEA3');
   noFill(); 
-  circle(cords.x, cords.y, 10);   
-  
+  circle(cordsOnY.x, cordsOnY.y, 10);   
+
   strokeWeight(1)
   stroke('#666');
   line(cordsOnX.x, cordsOnX.y, cords.x, cords.y)
@@ -161,6 +161,11 @@ function localizeInference() {
   strokeWeight(1)
   stroke('#666');
   line(cords.x, cords.y, cordsOnY.x, cordsOnY.y)
+
+  strokeWeight(2)
+  stroke('#000');
+  fill('#3CAEA3'); 
+  circle(cords.x, cords.y, 10);  
 }
 
 function setup() {
