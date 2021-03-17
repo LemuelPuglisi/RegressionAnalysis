@@ -120,6 +120,36 @@ function updateFunctionSize() {
     loop(); 
 }
 
+function predict() {
+  if (!rm.regressor) return;
+  let xInput = document.getElementById('x_in'); 
+  let yInput = document.getElementById('y_pr'); 
+  const x = parseFloat(xInput.value)
+  const y = rm.regressor.predict(x)[1]
+  yInput.value = y; 
+  loop(); 
+  localizeXtoInfer(x, y)  
+}
+
+function localizeXtoInfer(x, y) {
+  const cordsOnX = mapper.mapToCanvas(x, 0);
+  const cords = mapper.mapToCanvas(x, y)
+
+  strokeWeight(1)
+  stroke('#CA3433');
+  noFill(); 
+  circle(cordsOnX.x, cordsOnX.y, 10);
+  
+  strokeWeight(1)
+  stroke('#CA3433');
+  noFill(); 
+  circle(cords.x, cords.y, 10);   
+  
+  strokeWeight(1)
+  stroke('#666');
+  line(cordsOnX.x, cordsOnX.y, cords.x, cords.y)
+}
+
 function setup() {
 
     let c = createCanvas(800, 800, P2D);

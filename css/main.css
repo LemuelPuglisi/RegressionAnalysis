@@ -33,3 +33,21 @@ canvas:focus {
 .shad {
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #67AAF9;
+    border-color: #67AAF9;
+}
+
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:visited,
+.btn-danger:focus {
+    background-color: #B95F89;
+    border-color: #B95F89;
+}

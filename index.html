@@ -55,6 +55,8 @@
             <div class="col-sm-6">
 
                 <div class="p-3 mb-2 bg-white rounded mt-2 shad">
+
+                    <!-- Regression management -->
                     <form>
                         <div class="form-group">
                             <div class="row">
@@ -103,6 +105,17 @@
                         
                     </form>
 
+                    <!-- Predictions -->
+                    <form class="mt-4 mb-4">
+                        <div class="input-group">
+                            <span class="input-group-text">Inferenza</span>
+                            <input type="number" id="x_in" aria-label="x_in" placeholder="x" class="form-control">
+                            <input type="number" id="y_pr" aria-label="y_pr" placeholder="y predetta" class="form-control" readonly>
+                            <button class="btn btn-primary" type="button" onclick="predict()">effettua predizione</button>
+                        </div>
+                    </form>
+
+                    <!-- Point insertion -->
                     <form class="mt-4">
                         <p>
                             Inserisci i punti cliccando sul diagramma cartesiano o 
