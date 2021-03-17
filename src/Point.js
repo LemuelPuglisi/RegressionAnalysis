@@ -1,13 +1,19 @@
 class Point {
 
-    static initWithCartesianCoords(x, y) {
-        return new Point(x, y); 
+    static initWithCartesianCoords(x, y, 
+                                _diameter = 12, 
+                                _color = '#B95F89', 
+                                _mapper = new Mapper()) {
+        return new Point(x, y, _diameter, _color, _mapper); 
     }
 
-    static initWithCanvasCoords(x, y) {
+    static initWithCanvasCoords(x, y, 
+                                _diameter = 12, 
+                                _color = '#B95F89', 
+                                _mapper = new Mapper()) {
         const mapper = new Mapper(); 
         let cartesianCoords = mapper.mapToCartesian(x, y); 
-        return new Point(cartesianCoords.x, cartesianCoords.y)
+        return new Point(cartesianCoords.x, cartesianCoords.y, _diameter, _color, _mapper); 
     }
 
     /**

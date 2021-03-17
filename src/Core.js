@@ -8,7 +8,10 @@ let yform;
 let submit; 
 
 let pointSize; 
-let functionSize; 
+let functionSize;
+
+let inferFeatureX; 
+let inferFeatureY; 
 
 function getRegressionMethodFromSelect() {
     return document.getElementById('regression_type_select').value
@@ -37,7 +40,7 @@ function drawCartesianAxys() {
 }
 
 function addPoint(x = mouseX, y = mouseY) {
-    distribution.add(Point.initWithCanvasCoords(x, y))
+    distribution.add(Point.initWithCanvasCoords(x, y, pointSize))
     pointAdded = true; 
     loop(); 
 }
@@ -52,7 +55,7 @@ function addFromTextArea() {
       return; 
     }
     let parts = stringCords.split(',').map(v => parseInt(v))
-    let point = Point.initWithCartesianCoords(parts[0], parts[1])
+    let point = Point.initWithCartesianCoords(parts[0], parts[1], pointSize)
     distribution.add(point); 
     pointAdded = true; 
   })
@@ -63,7 +66,7 @@ function addPointUsingForm() {
     let x = document.getElementById('new_point_x_cord').value
     let y = document.getElementById('new_point_y_cord').value
     if (x && y) {
-      let p = Point.initWithCartesianCoords(parseInt(x), parseInt(y))
+      let p = Point.initWithCartesianCoords(parseInt(x), parseInt(y), pointSize) 
       distribution.add(p); 
       pointAdded = true; 
     }
@@ -108,14 +111,14 @@ function displayFunctionAsString() {
 
 function updatePointSize() {
     let pointsizeRange = document.getElementById('point-size'); 
-    pointSize = pointsizeRange.value; 
+    pointSize = parseInt(pointsizeRange.value); 
     distribution.pointset.forEach(point => point.setDiameter(pointSize))
     loop(); 
 }
 
 function updateFunctionSize() {
     let functionSizeRange = document.getElementById('function-size'); 
-    functionSize = functionSizeRange.value; 
+    functionSize = parseInt(functionSizeRange.value); 
     rm.setFunctionThickness(functionSize)
     loop(); 
 }
@@ -127,13 +130,15 @@ function predict() {
   const x = parseFloat(xInput.value)
   const y = rm.regressor.predict(x)[1]
   yInput.value = y; 
+  inferFeatureX = x; 
+  inferFeatureY = y; 
   loop(); 
-  localizeXtoInfer(x, y)  
 }
 
-function localizeXtoInfer(x, y) {
-  const cordsOnX = mapper.mapToCanvas(x, 0);
-  const cords = mapper.mapToCanvas(x, y)
+function localizeInference() {
+  const cordsOnX = mapper.mapToCanvas(inferFeatureX, 0);
+  const cordsOnY = mapper.mapToCanvas(0, inferFeatureY); 
+  const cords = mapper.mapToCanvas(inferFeatureX, inferFeatureY)
 
   strokeWeight(1)
   stroke('#CA3433');
@@ -148,6 +153,14 @@ function localizeXtoInfer(x, y) {
   strokeWeight(1)
   stroke('#666');
   line(cordsOnX.x, cordsOnX.y, cords.x, cords.y)
+
+  strokeWeight(1)
+  stroke('#666');
+  line(cordsOnX.x, cordsOnX.y, cords.x, cords.y)
+
+  strokeWeight(1)
+  stroke('#666');
+  line(cords.x, cords.y, cordsOnY.x, cordsOnY.y)
 }
 
 function setup() {
@@ -165,6 +178,9 @@ function setup() {
 
     document.getElementById('function-size').value = functionSize; 
     document.getElementById('point-size').value = pointSize;  
+
+    inferFeatureX = null; 
+    inferFeatureY = null;; 
 
     mapper = new Mapper(); 
     distribution = new Distribution(); 
@@ -188,6 +204,11 @@ function draw() {
 
   rm.displayRegressionFunction(); 
   displayFunctionAsString(); 
+
+  predict(); 
+  if (inferFeatureX && inferFeatureY) {
+    localizeInference(); 
+  }
 
   fill(0); 
   noStroke(); 
